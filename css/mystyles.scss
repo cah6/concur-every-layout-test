@@ -1,5 +1,6 @@
 :root {
-  --ratio: 1.5;
+  // golden ratio ¯\_(ツ)_/¯
+  --ratio: 1.61803398875;
   --s-5: calc(var(--s-4) / var(--ratio));
   --s-4: calc(var(--s-3) / var(--ratio));
   --s-3: calc(var(--s-2) / var(--ratio));
@@ -12,7 +13,9 @@
   --s4: calc(var(--s3) * var(--ratio));
   --s5: calc(var(--s4) * var(--ratio));
 
-  --child: 1;
+  --border-thin: 2px;
+  --color-light: #fff;
+  --color-dark: #000;
 }
 
 * {
@@ -21,6 +24,7 @@
 
 //////////////////////////////////////////////////////////////////////////////
 /* Stack layout */
+
 stack-l {
   display: flex;
   flex-direction: column;
@@ -28,7 +32,7 @@ stack-l {
 }
 
 stack-l > * + * {
-  margin-top: var(--space);
+  margin-top: var(--s1);
 }
 
 stack-l:only-child {
@@ -36,10 +40,62 @@ stack-l:only-child {
 }
 
 //////////////////////////////////////////////////////////////////////////////
+/* Box layout */
+
+box-l {
+  display: block;
+  padding: var(--s1);
+  border-width: var(--border-thin);
+  /* ↓ For high contrast mode */
+  outline: var(--border-thin) solid transparent;
+  outline-offset: calc(var(--border-thin) * -1);
+}
+
+//////////////////////////////////////////////////////////////////////////////
 /* Cover layout */
+
 cover-l {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   padding: var(--s1);
+}
+
+//////////////////////////////////////////////////////////////////////////////
+/* Reel layout */
+
+reel-l {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-color: var(--color-light) var(--color-dark);
+}
+
+reel-l > * {
+  flex: 0 0 var(--item-width);
+}
+
+reel-l > img {
+  height: 100%;
+  flex-basis: auto;
+  width: auto;
+}
+
+reel-l::-webkit-scrollbar {
+  height: 1rem;
+}
+
+reel-l::-webkit-scrollbar-track {
+  background-color: var(--color-dark);
+}
+
+reel-l::-webkit-scrollbar-thumb {
+  background-color: var(--color-dark);
+  background-image: linear-gradient(
+    var(--color-dark) 0,
+    var(--color-dark) 0.25rem,
+    var(--color-light) 0.25rem,
+    var(--color-light) 0.75rem,
+    var(--color-dark) 0.75rem
+  );
 }
