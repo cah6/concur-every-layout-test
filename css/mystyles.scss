@@ -7,8 +7,8 @@
   --s-2: calc(var(--s-1) / var(--ratio));
   --s-1: calc(var(--s0) / var(--ratio));
   --s0: 1rem;
-  --s1: calc(var(--s0) * var(--ratio));
-  --s2: calc(var(--s1) * var(--ratio));
+  --s1: calc(var(--s0) * var(--ratio)); // 1.61 = 25.76
+  --s2: calc(var(--s1) * var(--ratio)); // 2.61 =
   --s3: calc(var(--s2) * var(--ratio));
   --s4: calc(var(--s3) * var(--ratio));
   --s5: calc(var(--s4) * var(--ratio));
@@ -16,10 +16,42 @@
   --border-thin: 2px;
   --color-light: #fff;
   --color-dark: #000;
+  --measure: 80ch;
+
+  --color-blue: #5c92fd;
+  --color-peach: #efaaaa;
 }
 
 * {
   box-sizing: border-box;
+  max-width: var(--measure);
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+div,
+header,
+nav,
+main,
+footer,
+stack-l,
+box-l,
+grid-l,
+reel-l {
+  max-width: none;
+}
+
+img {
+  max-width: 100%;
+}
+
+//////////////////////////////////////////////////////////////////////////////
+/* Custom section */
+cluster-l > ul {
+  list-style: none;
+  text-transform: uppercase;
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -39,6 +71,14 @@ stack-l:only-child {
   height: 100%;
 }
 
+stack-l > h1 {
+  margin-bottom: 0;
+}
+
+stack-l > p + p {
+  margin-top: var(--s0);
+}
+
 //////////////////////////////////////////////////////////////////////////////
 /* Box layout */
 
@@ -49,6 +89,14 @@ box-l {
   /* ↓ For high contrast mode */
   outline: var(--border-thin) solid transparent;
   outline-offset: calc(var(--border-thin) * -1);
+
+  // CUSTOM
+  color: var(--color-dark);
+  background-color: var(--color-light);
+}
+
+box-l * {
+  color: inherit;
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -98,4 +146,151 @@ reel-l::-webkit-scrollbar-thumb {
     var(--color-light) 0.75rem,
     var(--color-dark) 0.75rem
   );
+}
+
+//////////////////////////////////////////////////////////////////////////////
+/* Grid layout */
+
+grid-l {
+  display: grid;
+  grid-gap: var(--s1);
+  align-content: start;
+  grid-template-columns: 100%;
+}
+
+//////////////////////////////////////////////////////////////////////////////
+/* Center layout */
+
+center-l {
+  display: block;
+  box-sizing: content-box;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: var(--max);
+}
+
+//////////////////////////////////////////////////////////////////////////////
+/* Cluster layout */
+
+cluster-l > * {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin: calc(var(--s1) / 2 * -1);
+}
+
+cluster-l > * > * {
+  margin: calc(var(--s1) / 2);
+}
+
+//////////////////////////////////////////////////////////////////////////////
+/* Sidebar layout */
+
+sidebar-l > * {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+sidebar-l > * > * {
+  flex-grow: 1;
+}
+
+//////////////////////////////////////////////////////////////////////////////
+// Switcher layout
+
+switcher-l {
+  // changes it a bit?
+  // display: block;
+}
+
+switcher-l > * {
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
+  margin: calc((var(--space) / 2) * -1);
+}
+
+switcher-l > * > * {
+  flex-basis: calc((var(--threshold) - (100% - var(--space))) * 999);
+  flex-grow: 1;
+  margin: calc(var(--space) / 2);
+}
+
+//////////////////////////////////////////////////////////////////////////////
+// Cover layout
+
+cover-l {
+  display: flex;
+  flex-direction: column;
+  min-height: var(--minHeight);
+  padding: var(--padding);
+}
+
+cover-l > * {
+  margin-top: var(--space);
+  margin-bottom: var(--space);
+}
+
+//////////////////////////////////////////////////////////////////////////////
+// Frame layout
+
+frame-l {
+  display: block;
+  position: relative;
+  padding-bottom: calc(var(--numerator) / var(--denominator) * 100%);
+}
+
+frame-l > * {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+frame-l > img,
+frame-l > video {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+//////////////////////////////////////////////////////////////////////////////
+// Icon layout
+
+icon-l svg {
+  height: 0.75em;
+  height: 1cap;
+  width: 0.75em;
+  width: 1cap;
+}
+
+//////////////////////////////////////////////////////////////////////////////
+// Imposter layout
+
+imposter-l {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+//////////////////////////////////////////////////////////////////////////////
+// Custom page level stuff
+
+.nav {
+  background-color: var(--color-blue);
+  color: white;
+}
+
+.notification {
+  background-color: var(--color-dark);
+}
+
+.hero {
+  background: radial-gradient(var(--color-blue), var(--color-peach));
 }
